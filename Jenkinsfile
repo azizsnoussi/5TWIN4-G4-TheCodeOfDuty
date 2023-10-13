@@ -26,6 +26,11 @@ pipeline {
                 sh 'mvn clean'
             }
         }
+	stage('MVN SONARQUBE') {
+            steps {
+                sh 'mvn sonar:sonar -Dsonar.login=admin -Dsonar.password=sonar -Dmaven.test.skip=true';
+            }
+        }
   
     }
 }
