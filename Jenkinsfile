@@ -35,6 +35,11 @@ pipeline {
                 sh 'mvn test'
             }
         }
+    stage('NEXUS') {
+            steps {
+                sh 'mvn clean deploy -DskipTests=true'
+            }
+        }
     }
 }
 
