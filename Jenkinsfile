@@ -41,6 +41,8 @@ pipeline {
                 sh 'mvn deploy -DskipTests'
             }   
     }
+
+    }
 }
 
 
