@@ -35,11 +35,11 @@ pipeline {
                 sh 'mvn test'
             }
         }
-    stage('NEXUS') {
-            steps {
-                sh 'mvn deploy -DskipTests'
-            }
-        }
+       #stage('NEXUS') {
+       #     steps {
+       #         sh 'mvn deploy -DskipTests'
+       #     }
+       # }
     }
 }
 
