@@ -39,8 +39,24 @@ pipeline {
     stage('NEXUS') {
             steps {
                 sh 'mvn deploy -DskipTests'
-            }   
-    }
+            }  
+        }
+
+    stage('Build Docker') {
+            steps {
+                sh "docker build -t azizsnoussi/kaddemback ."
+            }
+        }
+    
+    
+    // stage('Docker Login') {
+    //   steps {
+    //     withCredentials([usernamePassword(credentialsId: 'dockercred', usernameVariable: 'DOCKERHUB_USERNAME', passwordVariable: 'DOCKERHUB_PASSWORD')]) {
+    //       sh 'docker login -u $DOCKERHUB_USERNAME -p $DOCKERHUB_PASSWORD'
+    //     }
+    //   }
+    // }
+
 
     }
 }
