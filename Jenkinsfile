@@ -24,15 +24,16 @@ pipeline {
             }
         }
 
-	stage('MVN SONARQUBE') {
-            steps {
-                sh 'mvn sonar:sonar -Dsonar.login=admin -Dsonar.password=sonar -Dmaven.test.skip=true'
-            }
-        }
-	stage('JUNIT / MOCKITO' ) {
+    stage('JUNIT / MOCKITO' ) {
             steps {
           
                 sh 'mvn test'
+            }
+        }    
+
+	stage('MVN SONARQUBE') {
+            steps {
+                sh 'mvn sonar:sonar -Dsonar.login=admin -Dsonar.password=sonar -Dmaven.test.skip=true'
             }
         }
         
@@ -49,13 +50,13 @@ pipeline {
         }
     
     
-    // stage('Docker Login') {
-    //   steps {
-    //     withCredentials([usernamePassword(credentialsId: 'dockercred', usernameVariable: 'DOCKERHUB_USERNAME', passwordVariable: 'DOCKERHUB_PASSWORD')]) {
-    //       sh 'docker login -u $DOCKERHUB_USERNAME -p $DOCKERHUB_PASSWORD'
-    //     }
-    //   }
-    // }
+    stage('Docker Login') {
+      steps {
+        withCredentials([usernamePassword(credentialsId: 'dockercred', usernameVariable: 'DOCKERHUB_USERNAME', passwordVariable: 'DOCKERHUB_PASSWORD')]) {
+          sh 'docker login -u azizsnoussi -p $DOCKERHUB_PASSWORD'
+        }
+      }
+    }
 
     stage('docker compose') {
             steps {
