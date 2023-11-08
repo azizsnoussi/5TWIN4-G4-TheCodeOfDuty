@@ -1,5 +1,10 @@
 package tn.esprit.spring.kaddem.service;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.mockito.Mockito.doNothing;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -77,26 +82,26 @@ public class EtudiantImplTest {
         Assertions.assertThat(retrievedEtudiants).isNotNull();
     }
 
-    /*@Test
+    @Test
     void testDeleteEtudiant() {
-       
-    	 Etudiant etudiant = new Etudiant();
-         etudiant.setIdEtudiant(1);
-         etudiant.setNomE("John");
-         etudiant.setPrenomE("Doe");
-         etudiant.setOp(Option.GAMIX);
 
-         Mockito.when(etudiantRepository.save(Mockito.any(Etudiant.class))).thenReturn(etudiant);
+      Etudiant mockEtudiant = new Etudiant();
+      mockEtudiant.setIdEtudiant(1);
+      mockEtudiant.setNomE("John");
 
-         Mockito.doNothing().when(etudiantRepository).deleteById(Mockito.anyInt());
+      when(etudiantRepository.findById(1))
+        .thenReturn(Optional.of(mockEtudiant));
 
-         etudiantService.addEtudiant(etudiant);
+      doNothing().when(etudiantRepository).delete(mockEtudiant); 
 
-         Mockito.verify(etudiantRepository).save(etudiant);
-         
-         etudiantService.removeEtudiant(etudiant.getIdEtudiant());
+      etudiantService.addEtudiant(mockEtudiant);
 
+      Etudiant retrieved = etudiantService.retrieveEtudiant(1);
+      assertEquals(mockEtudiant, retrieved);
 
-         Mockito.verify(etudiantRepository).deleteById(etudiant.getIdEtudiant());
-    }*/
+      etudiantService.removeEtudiant(1);
+
+      verify(etudiantRepository).delete(mockEtudiant);
+
+    }
 }
