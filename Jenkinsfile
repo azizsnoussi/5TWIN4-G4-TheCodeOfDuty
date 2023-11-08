@@ -64,20 +64,19 @@ pipeline {
                 sh "docker-compose up "
             }
         }
+    }
 
-
-    post {
+     post {
       success {
-        mail to: 'aziz.snoussi99@gmail.com',
+        mail to: 'samar.bouzezi@esprit.tn',
         subject: 'Jenkins Build pipeline: Success',
         body: '''Your pipeline build success.'''
       }
       failure {
-        mail to: 'aziz.snoussi99@gmail.com',
+        mail to: 'samar.bouzezi@esprit.tn',
         subject: 'Jenkins Build pipeline: Failure',
         body: '''Your pipeline build failed.'''
       }
-     }
     }
 }
 
