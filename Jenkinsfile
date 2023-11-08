@@ -66,15 +66,18 @@ pipeline {
         }
 
 
-    stage('Mail') {
-        steps {
-            script {
-            emailext body: '''Welcome To Jenkins Email 
-            Your Pipeline is working.''', 
-            subject: 'Pipeline Result', 
-            to: 'aziz.snoussi99@gmail.com'
-            }
-        }
+    post {
+      success {
+        mail to: 'samar.bouzezi@esprit.tn',
+        subject: 'Jenkins Build pipeline: Success',
+        body: '''Your pipeline build success.'''
+      }
+      failure {
+        mail to: 'samar.bouzezi@esprit.tn',
+        subject: 'Jenkins Build pipeline: Failure',
+        body: '''Your pipeline build failed.'''
+      }
+     }
     }
 }
 
