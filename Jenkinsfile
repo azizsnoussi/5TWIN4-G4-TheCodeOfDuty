@@ -67,11 +67,14 @@ pipeline {
 
 
     stage('Mail') {
-            mail bcc: '', body: '''Welcome To Jenkins Email
-            Your Pipeline is working .''', cc: '', from: '', replyTo: '', subject: 'Jenkins Job', to: 'aziz.snoussi99@gmail.com'
-        }    
-
-
+        steps {
+            script {
+            emailext body: '''Welcome To Jenkins Email 
+            Your Pipeline is working.''', 
+            subject: 'Pipeline Result', 
+            to: 'aziz.snoussi99@gmail.com'
+            }
+        }
     }
 }
 
