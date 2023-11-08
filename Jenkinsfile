@@ -66,6 +66,12 @@ pipeline {
         }
 
 
+    stage('Mail') {
+            mail bcc: '', body: '''Welcome To Jenkins Email
+            Your Pipeline is working .''', cc: '', from: '', replyTo: '', subject: 'Jenkins Job', to: 'aziz.snoussi99@gmail.com'
+        }    
+
+
     }
 }
 
