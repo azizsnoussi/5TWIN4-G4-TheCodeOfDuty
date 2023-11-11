@@ -61,7 +61,7 @@ pipeline {
 
     stage('Clean') {
             steps {
-                 dir('/etudiant-angular') {
+                 dir('etudiant-angular') {
                 sh 'rm -rf node_modules'
                 sh 'npm cache clean --force'
                 sh'npm cache clean -f'
