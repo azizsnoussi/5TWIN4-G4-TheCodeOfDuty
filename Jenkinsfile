@@ -68,12 +68,12 @@ pipeline {
 
      post {
       success {
-        mail to: 'samar.bouzezi@esprit.tn',
+        mail to: 'mohamedaziz.snoussi@esprit.tn',
         subject: 'Jenkins Build pipeline: Success',
         body: '''Your pipeline build success.'''
       }
       failure {
-        mail to: 'samar.bouzezi@esprit.tn',
+        mail to: 'mohamedaziz.snoussi@esprit.tn',
         subject: 'Jenkins Build pipeline: Failure',
         body: '''Your pipeline build failed.'''
       }
