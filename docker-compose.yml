@@ -27,9 +27,6 @@ services:
       - SPRING_DATASOURCE_PASSWORD=
     networks:
       - my-network
-networks:
-  my-network:
-
   front_app:
     build: ./etudiant-angular
     image: front
@@ -37,4 +34,6 @@ networks:
     ports:
       - 4200:80
     networks:
-      - my_network
+      - my-network
+networks:
+  my-network:      
