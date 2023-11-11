@@ -10,6 +10,6 @@ RUN npm install --force
 
 FROM nginx:latest
 
-COPY --from=builder /app/dist/ /usr/share/nginx/html
+COPY --from=builder /dist/ /usr/share/nginx/html
 
 EXPOSE 4200
