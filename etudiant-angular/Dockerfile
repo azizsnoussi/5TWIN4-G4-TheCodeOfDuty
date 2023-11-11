@@ -1,11 +1,20 @@
-# Use the base Nginx image
-FROM nginx:alpine
+FROM node:16.20.2
 
-# Remove the default Nginx static files
-RUN rm -rf /usr/share/nginx/html/*
+WORKDIR /app
+RUN apt-get update
 
-# Copy the Angular app build output to the Nginx web root
-COPY dist/* /usr/share/nginx/html/
+COPY package.json .
+RUN npm install
 
-# Expose the default port for an Angular app (usually 80)
+COPY . .
+RUN npm run build --prod
+
+
+FROM nginx:latest
+
+COPY dist /usr/share/nginx/html
+COPY default.conf /etc/nginx/conf.d
+
 EXPOSE 80
+
+CMD ["nginx", "-g", "daemon off;"]
