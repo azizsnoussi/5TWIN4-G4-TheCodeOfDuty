@@ -1,15 +1,11 @@
-FROM node:16.20.2 as builder
+# Use the base Nginx image
+FROM nginx:alpine
 
-WORKDIR /app
+# Remove the default Nginx static files
+RUN rm -rf /usr/share/nginx/html/*
 
-COPY . /app
+# Copy the Angular app build output to the Nginx web root
+COPY dist/* /usr/share/nginx/html/
 
-RUN npm uninstall -D angular-cli --legacy-peer-deps
-
-RUN npm install --force
-
-FROM nginx:latest
-
-COPY --from=builder /dist/ /usr/share/nginx/html
-
-EXPOSE 4200
+# Expose the default port for an Angular app (usually 80)
+EXPOSE 80
