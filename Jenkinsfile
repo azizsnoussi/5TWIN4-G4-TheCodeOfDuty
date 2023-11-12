@@ -57,36 +57,7 @@ pipeline {
           sh 'docker login -u azizsnoussi -p $DOCKERHUB_PASSWORD'
         }
       }
-    }
-
-    stage('Clean') {
-            steps {
-                 dir('etudiant-angular') {
-                sh 'rm -rf node_modules'
-                sh 'npm cache clean --force'
-                sh'npm cache clean -f'
-                 }
-            }
-        }
-
-    stage('Install') {
-            steps {
-                dir('etudiant-angular') {
-              sh 'npm install ng2-search-filter @angular/platform-browser/animations --legacy-peer-deps'
-                sh 'npm install --legacy-peer-deps'
-                 }
-            }
-        }
-
-    stage('Build') {
-            steps {
-                dir('etudiant-angular') {
-                sh 'ng build --configuration=production --output-path=dist'
-              //sh 'ng serve --watch --proxy-config proxy.conf.json'
-                echo 'Build stage done'
-                }
-            }
-        }    
+    }   
 
     stage('docker compose') {
             steps {
