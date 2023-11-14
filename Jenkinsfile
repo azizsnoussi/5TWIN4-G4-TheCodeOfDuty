@@ -59,9 +59,15 @@ pipeline {
       }
     }   
 
+    stage('Docker Push') {
+      steps {
+        sh "docker push azizsnoussi/kaddemback"
+      }
+    }
+
     stage('docker compose') {
             steps {
-                sh "docker-compose up "
+                sh "docker-compose up -d "
             }
         }
     }
