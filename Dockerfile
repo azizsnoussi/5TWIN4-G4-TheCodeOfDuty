@@ -9,6 +9,7 @@ RUN --mount=type=cache,target=/root/.m2 mvn package
 # Stage 2: Create the runtime container
 FROM openjdk:8-jre-slim
 EXPOSE 8082
+RUN apt-get update && apt-get install -y curl
 ARG NEXUS_URL="http://192.168.1.0:8081/repository/maven-releases/"
 ARG ARTIFACT_PATH="tn/esprit/spring/kaddem/1.0/kaddem-1.0.jar"
 RUN curl -o /kaddem-1.0.jar ${NEXUS_URL}${ARTIFACT_PATH}
