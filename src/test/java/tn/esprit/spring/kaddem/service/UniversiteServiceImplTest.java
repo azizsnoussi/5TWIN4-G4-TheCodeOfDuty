@@ -1,10 +1,8 @@
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
+import java.util.HashSet;
+import java.util.Set;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -14,7 +12,6 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import tn.esprit.spring.kaddem.entities.Departement;
 import tn.esprit.spring.kaddem.entities.Universite;
-import tn.esprit.spring.kaddem.repositories.DepartementRepository;
 import tn.esprit.spring.kaddem.repositories.UniversiteRepository;
 import tn.esprit.spring.kaddem.services.UniversiteServiceImpl;
 
@@ -23,9 +20,6 @@ public class UniversiteServiceImplTest {
 
     @Mock
     private UniversiteRepository universiteRepository;
-
-    @Mock
-    private DepartementRepository departementRepository;
 
     @InjectMocks
     private UniversiteServiceImpl universiteService;
@@ -37,8 +31,7 @@ public class UniversiteServiceImplTest {
     @Test
     void testAddUniversite() {
         Universite universite = new Universite();
-        universite.setNomUniversite("Example University");
-        // Add other properties as needed
+        universite.setNomUniv("Example University");
 
         when(universiteRepository.save(any(Universite.class))).thenReturn(universite);
 
@@ -50,29 +43,27 @@ public class UniversiteServiceImplTest {
     @Test
     void testRetrieveUniversite() {
         Universite universite = new Universite();
-        universite.setIdUniversite(1);
-        universite.setNomUniversite("Example University");
-        // Add other properties as needed
+        universite.setIdUniv(1);
+        universite.setNomUniv("Example University");
 
-        when(universiteRepository.findById(anyInt())).thenReturn(Optional.of(universite));
+        when(universiteRepository.findById(anyInt())).thenReturn(java.util.Optional.of(universite));
 
-        Universite retrievedUniversite = universiteService.retrieveUniversite(universite.getIdUniversite());
+        Universite retrievedUniversite = universiteService.retrieveUniversite(universite.getIdUniv());
 
         assertThat(retrievedUniversite).isNotNull();
     }
 
     @Test
     void testRetrieveAllUniversites() {
-        List<Universite> universites = new ArrayList<>();
+        Set<Universite> universites = new HashSet<>();
         Universite universite = new Universite();
-        universite.setIdUniversite(1);
-        universite.setNomUniversite("Example University");
-        // Add other properties as needed
+        universite.setIdUniv(1);
+        universite.setNomUniv("Example University");
         universites.add(universite);
 
         when(universiteRepository.findAll()).thenReturn(universites);
 
-        List<Universite> retrievedUniversites = universiteService.retrieveAllUniversites();
+        Set<Universite> retrievedUniversites = new HashSet<>(universiteService.retrieveAllUniversites());
 
         assertThat(retrievedUniversites).isNotNull();
     }
@@ -80,11 +71,10 @@ public class UniversiteServiceImplTest {
     @Test
     void testDeleteUniversite() {
         Universite mockUniversite = new Universite();
-        mockUniversite.setIdUniversite(1);
-        mockUniversite.setNomUniversite("Example University");
-        // Add other properties as needed
+        mockUniversite.setIdUniv(1);
+        mockUniversite.setNomUniv("Example University");
 
-        when(universiteRepository.findById(1)).thenReturn(Optional.of(mockUniversite));
+        when(universiteRepository.findById(1)).thenReturn(java.util.Optional.of(mockUniversite));
         doNothing().when(universiteRepository).delete(mockUniversite);
 
         universiteService.addUniversite(mockUniversite);
@@ -96,8 +86,4 @@ public class UniversiteServiceImplTest {
 
         verify(universiteRepository).delete(mockUniversite);
     }
-
-    // Add similar test methods for other service methods
-
-    // ...
 }
