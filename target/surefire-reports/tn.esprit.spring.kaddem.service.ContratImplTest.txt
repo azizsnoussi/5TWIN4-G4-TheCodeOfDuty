@@ -1,0 +1,11 @@
+-------------------------------------------------------------------------------
+Test set: tn.esprit.spring.kaddem.service.ContratImplTest
+-------------------------------------------------------------------------------
+Tests run: 4, Failures: 1, Errors: 0, Skipped: 0, Time elapsed: 3.798 s <<< FAILURE! - in tn.esprit.spring.kaddem.service.ContratImplTest
+testAddContrat  Time elapsed: 0.216 s  <<< FAILURE!
+org.opentest4j.AssertionFailedError: Unexpected exception thrown: java.lang.NullPointerException
+	at tn.esprit.spring.kaddem.service.ContratImplTest.testAddContrat(ContratImplTest.java:67)
+Caused by: java.lang.NullPointerException
+	at tn.esprit.spring.kaddem.service.ContratImplTest.lambda$testAddContrat$0(ContratImplTest.java:67)
+	at tn.esprit.spring.kaddem.service.ContratImplTest.testAddContrat(ContratImplTest.java:67)
+

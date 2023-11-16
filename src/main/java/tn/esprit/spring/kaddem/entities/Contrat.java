@@ -7,6 +7,8 @@ import java.util.Date;
 
 import javax.persistence.*;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 @ToString
 public class Contrat implements Serializable{
@@ -22,6 +24,7 @@ public class Contrat implements Serializable{
     private Boolean archive;
     private Integer montantContrat;
     @ManyToOne(cascade = CascadeType.ALL)
+    @JsonIgnore
     private Etudiant etudiant;
 
     public Contrat() {

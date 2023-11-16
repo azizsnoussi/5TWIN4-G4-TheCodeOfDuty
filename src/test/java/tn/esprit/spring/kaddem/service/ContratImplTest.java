@@ -1,6 +1,8 @@
 package tn.esprit.spring.kaddem.service;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.Mockito.*;
 
 import java.util.ArrayList;
@@ -13,6 +15,8 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
+import org.mockito.MockedStatic;
+import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import tn.esprit.spring.kaddem.entities.Contrat;
@@ -41,27 +45,14 @@ public class ContratImplTest {
         assertThat(etudiantRepository).isNotNull(); 
     }
 
-    //@Test
-    /*void testAddContrat() {
-        Etudiant etudiant = new Etudiant();
-        etudiant.setNomE("John");
-        etudiant.setPrenomE("Doe");
-        etudiant.setOp(Option.GAMIX);
+    @Test
+    void testAddContratException() {
 
-        Contrat contratToAdd = new Contrat();
-        contratToAdd.setDateDebutContrat(new Date());
-        contratToAdd.setSpecialite(Specialite.IA);
-        contratToAdd.setArchive(false);
-        contratToAdd.setMontantContrat(500);
-        contratToAdd.setEtudiant(etudiant);
-
-        when(etudiantRepository.save(any(Etudiant.class))).thenReturn(etudiant);
-        when(contratRepository.save(any(Contrat.class))).thenReturn(contratToAdd);
-
-        Contrat addedContrat = contratService.addContrat(contratToAdd);
-
-        assertThat(addedContrat).isNotNull();
-    }*/
+    	ContratServiceImpl c = new ContratServiceImpl();
+    	Contrat contract = mock(Contrat.class);
+    	assertThrows(Exception.class,()->c.addContrat(contract));
+    
+    }
 
     @Test
     void testRetrieveContrat() {
