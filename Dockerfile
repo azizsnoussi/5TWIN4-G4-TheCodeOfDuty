@@ -9,7 +9,6 @@ RUN --mount=type=cache,target=/root/.m2 mvn package
 # Stage 2: Create the runtime container
 FROM openjdk:8-jre-slim
 EXPOSE 8082
-RUN apt-get update && apt-get install -y curl
 COPY --from=builder /app/target/kaddem-1.0.jar /kaddem-1.0.jar
 ENV JAVA_OPTS="-Dlogging.level.org.springframework.security=DEBUG -Djdk.tls.client.protocols=TLSv1.2"
 ENTRYPOINT ["java", "-jar", "/kaddem-1.0.jar"]
