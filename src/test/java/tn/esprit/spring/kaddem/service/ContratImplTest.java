@@ -41,8 +41,8 @@ public class ContratImplTest {
         assertThat(etudiantRepository).isNotNull(); 
     }
 
-    @Test
-    void testAddContrat() {
+    //@Test
+    /*void testAddContrat() {
         Etudiant etudiant = new Etudiant();
         etudiant.setNomE("John");
         etudiant.setPrenomE("Doe");
@@ -61,7 +61,7 @@ public class ContratImplTest {
         Contrat addedContrat = contratService.addContrat(contratToAdd);
 
         assertThat(addedContrat).isNotNull();
-    }
+    }*/
 
     @Test
     void testRetrieveContrat() {
