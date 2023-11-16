@@ -28,7 +28,7 @@ services:
     networks:
       - my-network
   front_app:
-    build: ./etudiant-angular
+    build: .
     image: front
     restart: unless-stopped
     ports:
