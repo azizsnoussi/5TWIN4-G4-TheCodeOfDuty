@@ -34,18 +34,7 @@ pipeline {
         }    
         
    
-     post {
-      success {
-        mail to: 'yassine.najar@esprit.tn',
-        subject: 'Jenkins Build pipeline: Success',
-        body: '''Your pipeline build success.'''
-      }
-      failure {
-        mail to: 'yassine.najar@esprit.tn',
-        subject: 'Jenkins Build pipeline: Failure',
-        body: '''Your pipeline build failed.'''
-      }
-    }
+     
 }
 }
 
