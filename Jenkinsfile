@@ -4,7 +4,6 @@ pipeline {
     stages {
          stage('Display pom.xml') {
             steps {
-                // Read and display the content of the pom.xml file
                 script {
                     def pomContent = readFile('pom.xml')
                     echo "Content of pom.xml:\n${pomContent}"
@@ -12,7 +11,12 @@ pipeline {
             }
         }
 
-        
+	stage('Maven Clean') {
+            steps {
+     
+                sh 'mvn clean'
+            }
+        }
         stage('Maven Compile') {
             steps {
      
@@ -20,12 +24,30 @@ pipeline {
             }
         }
 
-        stage('Maven Clean') {
-            steps {
+ 
      
-                sh 'mvn clean'
+
+	stage('MVN SONARQUBE') {
+            steps {
+                sh 'mvn verify sonar:sonar -Dsonar.login=admin -Dsonar.password=sonar -Dmaven.test.skip=true'
             }
-        }
-  
+        }    
+        
+   
+     post {
+      success {
+        mail to: 'yassine.najar@esprit.tn',
+        subject: 'Jenkins Build pipeline: Success',
+        body: '''Your pipeline build success.'''
+      }
+      failure {
+        mail to: 'yassine.najar@esprit.tn',
+        subject: 'Jenkins Build pipeline: Failure',
+        body: '''Your pipeline build failed.'''
+      }
     }
 }
+
+
+
+
