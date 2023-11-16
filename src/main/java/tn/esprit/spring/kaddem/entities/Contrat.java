@@ -10,7 +10,7 @@ import javax.persistence.*;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
-@ToString
+@ToString(exclude = {"etudiant"})
 public class Contrat implements Serializable{
     @Id
     @GeneratedValue(strategy= GenerationType.IDENTITY)
