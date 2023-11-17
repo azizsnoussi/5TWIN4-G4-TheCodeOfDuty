@@ -33,7 +33,7 @@ public class UniversiteServiceImplTest {
     void testAddUniversite() {
         Universite universite = new Universite();
         universite.setNomUniv("Some University");
-        // Add other properties as needed
+
 
         when(universiteRepository.save(any(Universite.class))).thenReturn(universite);
 
@@ -47,7 +47,7 @@ public class UniversiteServiceImplTest {
         Universite universite = new Universite();
         universite.setIdUniv(1);
         universite.setNomUniv("Some University");
-        // Add other properties as needed
+
 
         when(universiteRepository.findById(anyInt())).thenReturn(Optional.of(universite));
 
@@ -62,7 +62,7 @@ public class UniversiteServiceImplTest {
         Universite universite = new Universite();
         universite.setIdUniv(1);
         universite.setNomUniv("Some University");
-        // Add other properties as needed
+
         universites.add(universite);
 
         when(universiteRepository.findAll()).thenReturn(universites);
@@ -77,7 +77,7 @@ public class UniversiteServiceImplTest {
         Universite mockUniversite = new Universite();
         mockUniversite.setIdUniv(1);
         mockUniversite.setNomUniv("Some University");
-        // Add other properties as needed
+
 
         when(universiteRepository.findById(1)).thenReturn(Optional.of(mockUniversite));
         doNothing().when(universiteRepository).delete(mockUniversite);
