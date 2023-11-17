@@ -46,7 +46,7 @@ pipeline {
 
     stage('Build Docker') {
             steps {
-                sh "docker build -t yassinenajar/kaddem ."
+                sh "sudo docker build -t yassinenajar/kaddem ."
             }
         }
 
