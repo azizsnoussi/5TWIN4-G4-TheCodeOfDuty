@@ -2,24 +2,15 @@ pipeline {
     agent any
 
     stages {
-        stage('Display pom.xml') {
-            steps {
-                script {
-                    def pomContent = readFile('pom.xml')
-                    echo "Content of pom.xml:\n${pomContent}"
-                }
-            }
-        }
-
         stage('Maven Clean') {
             steps {
                 sh 'mvn clean'
             }
         }
 
-        stage('Maven Compile') {
+        stage('Maven Install') {
             steps {
-                sh 'mvn compile'
+                sh 'mvn install'
             }
         }
 
@@ -29,14 +20,11 @@ pipeline {
             }
         }
 
-        /*
-        // Commented out the SonarQube stage
         stage('MVN SONARQUBE') {
             steps {
                 sh 'mvn verify sonar:sonar -Dsonar.login=admin -Dsonar.password=sonar -Dmaven.test.skip=true'
             }
         }
-        */
 
         stage('NEXUS') {
             steps {
@@ -44,36 +32,38 @@ pipeline {
             }
         }
 
-    stage('Build Docker') {
+        stage('Build Docker') {
             steps {
                 sh "docker build -t yassinenajar/kaddem ."
             }
         }
-    
-    
-    stage('Docker Login') {
-      steps {
-        withCredentials([usernamePassword(credentialsId: 'dockerhubid', usernameVariable: 'DOCKERHUB_USERNAME', passwordVariable: 'DOCKERHUB_PASSWORD')]) {
-          sh 'docker login -u yassinenajar -p $DOCKERHUB_PASSWORD'
+
+        stage('Docker Login and Push') {
+            steps {
+                withCredentials([usernamePassword(credentialsId: 'dockerhubid', usernameVariable: 'DOCKERHUB_USERNAME', passwordVariable: 'DOCKERHUB_PASSWORD')]) {
+                    sh 'docker login -u $DOCKERHUB_USERNAME -p $DOCKERHUB_PASSWORD'
+                    sh 'docker push yassinenajar/kaddem'
+                }
+            }
         }
-      }
-    }   
 
-    stage('Docker Push') {
-      steps {
-        sh "docker push yassinenajar/kaddem"
-      }
-    }
-
-    stage('docker compose') {
+        stage('Docker Compose') {
             steps {
                 sh "docker-compose up -d "
             }
         }
-    
+    }
 
-
-        
-
+    post {
+        success {
+            emailext body: 'Build successful Yassine !',
+                     subject: 'Build Success',
+                     to: 'yassine.najar@esprit.tn'
+        }
+        failure {
+            emailext body: 'Build failed Yassine !',
+                     subject: 'Build Failure',
+                     to: 'yassine.najar@esprit.tn'
+        }
     }
 }
