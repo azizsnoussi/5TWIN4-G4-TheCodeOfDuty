@@ -49,6 +49,21 @@ pipeline {
                 sh "docker build -t yassinenajar/kaddem ."
             }
         }
+    
+    
+    stage('Docker Login') {
+      steps {
+        withCredentials([usernamePassword(credentialsId: 'dockerhubid', usernameVariable: 'DOCKERHUB_USERNAME', passwordVariable: 'DOCKERHUB_PASSWORD')]) {
+          sh 'docker login -u yassinenajar -p $DOCKERHUB_PASSWORD'
+        }
+      }
+    }   
+
+    stage('Docker Push') {
+      steps {
+        sh "docker push yassinenajar/kaddem"
+      }
+    }
 
         
 
