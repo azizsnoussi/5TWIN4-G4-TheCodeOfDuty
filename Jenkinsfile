@@ -44,7 +44,13 @@ pipeline {
             }
         }
 
-        // Add a new stage here if needed
+    stage('Build Docker') {
+            steps {
+                sh "docker build -t yassinenajar/kaddem ."
+            }
+        }
+
+        
 
     }
 }
