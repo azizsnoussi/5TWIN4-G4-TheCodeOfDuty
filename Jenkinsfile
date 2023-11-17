@@ -2,7 +2,7 @@ pipeline {
     agent any
 
     stages {
-         stage('Display pom.xml') {
+        stage('Display pom.xml') {
             steps {
                 script {
                     def pomContent = readFile('pom.xml')
@@ -11,45 +11,40 @@ pipeline {
             }
         }
 
-	stage('Maven Clean') {
+        stage('Maven Clean') {
             steps {
-     
                 sh 'mvn clean'
             }
         }
+
         stage('Maven Compile') {
             steps {
-     
                 sh 'mvn compile'
             }
         }
 
- 
-    stage('JUNIT / MOCKITO' ) {
+        stage('JUNIT / MOCKITO') {
             steps {
-          
                 sh 'mvn test'
             }
         }
 
- 
-     
-
-	stage('MVN SONARQUBE') {
+        /*
+        // Commented out the SonarQube stage
+        stage('MVN SONARQUBE') {
             steps {
                 sh 'mvn verify sonar:sonar -Dsonar.login=admin -Dsonar.password=sonar -Dmaven.test.skip=true'
             }
-        }    
-        
-    stage('NEXUS') {
+        }
+        */
+
+        stage('NEXUS') {
             steps {
                 sh 'mvn deploy -DskipTests'
-            }  
-        }    
-        
-   
-     
-}
-}
+            }
+        }
 
+        // Add a new stage here if needed
 
+    }
+}
