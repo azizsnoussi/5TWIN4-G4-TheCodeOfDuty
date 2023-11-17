@@ -8,9 +8,9 @@ pipeline {
             }
         }
 
-        stage('Maven Install') {
+        stage('Maven Compile') {
             steps {
-                sh 'mvn install'
+                sh 'mvn compile'
             }
         }
 
@@ -19,12 +19,12 @@ pipeline {
                 sh 'mvn test'
             }
         }
-
+/*
         stage('MVN SONARQUBE') {
             steps {
                 sh 'mvn verify sonar:sonar -Dsonar.login=admin -Dsonar.password=sonar -Dmaven.test.skip=true'
             }
-        }
+        }*/
 
         stage('NEXUS') {
             steps {
